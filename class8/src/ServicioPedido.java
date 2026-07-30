@@ -2,13 +2,10 @@ public class ServicioPedido {
 
     public void procesarPedido(Pedido pedido) {
         // 1. validación
-        if (pedido.getItems().isEmpty())
-            throw new RuntimeException("Pedido vacío");
-
+        validador.validar(pedido);
+    
         // 2. cálculo del total
-        double total = 0;
-        for (Item i : pedido.getItems())
-            total += i.getPrecio() * i.getCantidad();
+        double total = calculadora.calcular(pedido);
 
         // 3. descuento por tipo de cliente
         if (pedido.getCliente().getTipo().equals("VIP"))
