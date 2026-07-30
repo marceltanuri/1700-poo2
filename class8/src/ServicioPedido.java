@@ -14,13 +14,7 @@ public class ServicioPedido {
             total *= 0.95;
 
         // 4. persistencia (acceso directo a la base de datos)
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/tienda");
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO pedidos ...");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        pedidosRepository.save(pedido);
 
         // 5. notificación
         EmailSender sender = new EmailSender();
