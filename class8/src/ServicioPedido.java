@@ -17,14 +17,10 @@ public class ServicioPedido {
         pedidosRepository.save(pedido);
 
         // 5. notificación
-        EmailSender sender = new EmailSender();
-        sender.enviar(pedido.getCliente().getEmail(),
-                      "Pedido confirmado",
-                      "Su total es $ " + total);
+        notificador.notificar(pedido.getCliente(), "Su pedido ha sido confirmado");
 
         // 6. factura en PDF
-        PdfWriter writer = new PdfWriter("factura_" + pedido.getId() + ".pdf");
-        writer.escribirLinea("Total: " + total);
-        writer.guardar();
+        generadorFactura.generar(pedido, total);
+    
     }
 }
